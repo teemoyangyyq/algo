@@ -1,0 +1,102 @@
+package main
+
+import "fmt"
+
+type Node struct {
+	Next *Node
+	Val  int
+}
+
+func FindNode(line1 *Node, line2 *Node) *Node {
+	head1, head2 := line1, line2
+	num1 := GetLineNum(line1)
+	num2 := GetLineNum(line2)
+	PosNum := 0
+	lineFlag := false
+	if num2 < num1 {
+		PosNum = num1 - num2
+		lineFlag = true
+	} else {
+		PosNum = num2 - num1
+	}
+	if lineFlag {
+		for i := 0; i < PosNum; i++ {
+			head1 = head1.Next
+		}
+	} else {
+		for i := 0; i < PosNum; i++ {
+			head2 = head2.Next
+		}
+	}
+	return Decide(head1, head2)
+}
+
+func GetLineNum(node *Node) int {
+	if node == nil {
+		return 0
+	}
+	return 1 + GetLineNum(node.Next)
+}
+
+func Decide(line1 *Node, line2 *Node) *Node {
+	if line1 == nil && line2 == nil {
+		return nil
+	} else if line1 == line2 {
+		return line1
+	}
+	return Decide(line1.Next, line2.Next)
+}
+
+func Reserve(line *Node) *Node {
+	
+	p0, p1 := line, line.Next
+	if p1 == nil {
+		return p0
+	}
+	p2 := p1.Next
+	if p2 == nil {
+		p2.Next = p1
+		return p2
+	}
+	line.Next = nil
+	for ;p2 != nil; {
+		
+		temp := p2.Next
+		p1.Next = p0
+		p0 = p1
+		p1 = p2
+		if p2 == nil {
+			break ;
+		}
+		p2 = temp
+		
+		
+	}
+	p1.Next = p0
+	return p1
+}
+
+func PrintLine(temp *Node) {
+	for ; temp != nil; temp = temp.Next {
+		fmt.Printf("%d ", temp.Val)
+	}
+	fmt.Println(" ")
+}
+func Insert(node *Node, val int) *Node {
+	node.Val = val
+	return node
+}
+func main() {
+
+	head := new(Node)
+	temp := head
+	for i := 1; i < 10; i++ {
+		temp.Next = Insert(new(Node), i)
+		temp = temp.Next
+
+	}
+
+	PrintLine(head)
+	temp  = Reserve(head)
+	PrintLine(temp)
+}
