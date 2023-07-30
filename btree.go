@@ -110,7 +110,7 @@ func SpiltTreeNode(curNode *node){
 		rightTreeNode :=curNode.CurTreeNode
 		rightTreeNode.Length = rightTreeNode.Length - (m+1)/2
 		rightTreeNode.FirstNode = first2Node
-		UpNode(leftTreeNode,rightTreeNode)
+		UpTreeNode(leftTreeNode,rightTreeNode)
 	}
 	
 }
