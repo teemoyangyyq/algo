@@ -214,7 +214,9 @@ func Replace(curNode *Node) {
 
 func deleteSingle(curTreeNode *Node) {
 	root := curTreeNode.ParentNode
-	
+	if root == nil {
+		return
+	}
 	if root.PreNode != nil {
 		root.PreNode.NextNode =root.NextNode
 	}
