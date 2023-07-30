@@ -158,9 +158,9 @@ func DeleteBtree(root Node, value int, id int) {
 			root.CurTreeNode.Length-- 
 			if root.CurTreeNode.Length < (m+1)/2 {
 				if root.CurTreeNode.ParentNode.NextNode != nil {
-					Merge(root.CurTreeNode,root.CurTreeNode.ParentNode.NextNode.ChildTreeNode,1)
+					Merge(root.CurTreeNode,root.CurTreeNode.ParentNode.NextNode.ChildTreeNode)
 				}else {
-			 	    Merge(root.CurTreeNode.ParentNode.PreNode.ChildTreeNode,root.CurTreeNode,2)
+			 	    Merge(root.CurTreeNode.ParentNode.PreNode.ChildTreeNode,root.CurTreeNode)
 				}
 				
 			}
@@ -178,7 +178,7 @@ func DeleteBtree(root Node, value int, id int) {
 
 }
 
-func Merge(leftTreeNode *TreeNode, rightTreeNode *TreeNode, op int) {
+func Merge(leftTreeNode *TreeNode, rightTreeNode *TreeNode) {
 	leftFirstNode, leftLastNode= leftTreeNode.FirstNode, leftTreeNode.LastNode
 	rightFirstNode, rightLastNode= rightTreeNode.FirstNode, rightTreeNode.LastNode
 	leftLastNode.Next = rightFirstNode
@@ -226,9 +226,9 @@ func deleteSingle(curTreeNode *Node) {
 	root.CurTreeNode.Length--
 	if root.CurTreeNode.Length < (m+1)/2 {
 		if root.CurTreeNode.ParentNode.NextNode != nil {
-			Merge(root.CurTreeNode,root.CurTreeNode.ParentNode.NextNode.ChildTreeNode,1)
+			Merge(root.CurTreeNode,root.CurTreeNode.ParentNode.NextNode.ChildTreeNode)
 		}else {
-			Merge(root.CurTreeNode.ParentNode.PreNode.ChildTreeNode,root.CurTreeNode,2)
+			Merge(root.CurTreeNode.ParentNode.PreNode.ChildTreeNode,root.CurTreeNode)
 		}
 		
 	}
