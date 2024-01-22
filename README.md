@@ -1,3 +1,21 @@
+func Adjust(node int, data []int) {
+    left, right := node << 1 + 1, node << 1 + 2
+    if left  >=  len(data) {
+        return
+    }
+    maxPos := left
+    if right < len(data) && data[right] > data[left]{
+          maxPos = right
+    }
+    temp := data[maxPos]
+    if data[maxPos] > data[node] {
+        data[maxPos] = data[node]
+        data[node]   = temp
+        Adjust(maxPos, data)
+    }
+}
+
+
 type T struct {
     X int 
     Y int
@@ -32,7 +50,7 @@ func GetLine(data1,data2 []int)  []int {
             if !ok {
                 t = 0
             }
-            // 生成二元组优化，保证二元组生成数量小于数组长度
+            // 生成二元组优化，保证二元组生成数量小于数组长度，上限
             for j := Min(LargePos(i, P, hash[data1[i]]), len(hash[data1[i]])-1); j >=0 ; j-- {
                 temp := T{
                     X :i ,
@@ -40,6 +58,7 @@ func GetLine(data1,data2 []int)  []int {
                 }
                 // 找到应该替换的二元组位置
                 pos := FindPos(i,j,P)
+                // 生成二元组优化，保证二元组生成数量小于数组长度，下限，如果相同值对应的子序列长度小于已存在的横纵坐标更小的子序列长度，结束
                 if pos <= t {
                     break 
                 }
@@ -124,4 +143,10 @@ func Find(left, right, x, y int, PHash []T) (int, bool) {
 func FindPos(){
 
 }
+
+
+
+
+
+
 
